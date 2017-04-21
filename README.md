@@ -1,19 +1,19 @@
-Yii2-review
+Yii2-relations
 ==========
-Модуль добавления отзывов для товара.
+Модуль дает возможность быстро добавить возможность связывать модели между собой. Пример использования: привязка похожих продуктов.
 
 Установка
 ---------------------------------
 Выполнить команду
 
 ```
-php composer require dvizh/yii2-review "*"
+php composer require dvizh/yii2-relations "*"
 ```
 
 Или добавить в composer.json
 
 ```
-"dvizh/yii2-review": "*",
+"dvizh/yii2-relations": "*",
 ```
 
 И выполнить
@@ -22,38 +22,58 @@ php composer require dvizh/yii2-review "*"
 php composer update
 ```
 
-Далее, мигрируем базу:
-
-```
-php yii migrate --migrationPath=vendor/dvizh/yii2-review/migrations
-```
-
 Подключение и настройка
 ---------------------------------
-В конфигурационный файл приложения добавить модуль review
-
+В конфигурационный файл приложения добавить модуль relations
 ```php
     'modules' => [
-        'review' => [
-            'class' => 'dvizh\review\Module',
+        //..
+        'relations' => [
+            'class' => 'dvizh\relations\Module',
+            'fields' => ['code'],
         ],
-        //...
+        //..
     ]
 ```
 
-Виджеты
+*fields - массив доп. полей (по умолчанию в окне выбора показываются только id и название)
+
+Использование
 ---------------------------------
-За вывод формы заказа отвечает виджет dvizh\review\widgets\ReviewForm
+Связи хранятся в отдельном поле (TEXT) в виде сериализованного массива, поле нужно создать и добавить в модели. К модели, которая имплементирует \dvizh\relations\interfaces\Torelate и наследует AR, подключить поведение:
 
 ```php
-<?php
-use dvizh\review\widgets\ReviewList;
-use dvizh\review\widgets\ReviewForm;
-?>
+    function behaviors()
+    {
+        return [
+            'relations' => [
+                'class' => 'dvizh\relations\behaviors\AttachRelations',
+                'relatedModel' => 'common\models\Product',
+                'inAttribute' => 'relations',
+            ],
+        ];
+    }
 
-Выведет список отзывов о переданном продукте:
-<?=ReviewList::widget(['itemId' => $model->id]);?>
-
-Выведет форму добавления отзыва о продукте:
-<?=ReviewForm::widget(['model' => $model]);?>
+    public function getName()
+    {
+        return $this->name;
+    }
+    
+    public function getId()
+    {
+        return $this->id;
+    }
 ```
+
+* inAttribute - название поля модели, где будут храниться связи
+* relatedModel - модель, элементы которой нужно привязывать
+
+Теперь привязанные модели будет возвращаеть метод $model->getRelations()->all().
+
+Виджеты
+---------------------------------
+Выбор подключаемых моделей осуществляется через виджет:
+
+```<?=\dvizh\relations\widgets\Constructor::widget(['model' => $model]);?>```
+
+Его необходимо вызвать внутри формы редактирования вашей модели.

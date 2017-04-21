@@ -1,12 +1,12 @@
 {
-    "name": "dvizh/yii2-review",
-    "description": "review for a some yii2-model",
-    "keywords": ["yii2", "yii 2", "application", "review", "module", "dvizh"],
-    "homepage": "https://github.com/dvizh/yii2-review",
+    "name": "dvizh/yii2-relations",
+    "description": "Модуль позволяет привязывать любые модели к любым моделям (пример - похожие товары и т.д.)",
+    "keywords": ["yii2", "yii2", "application", "images", "yii2-relations", "relations", "dvizh"],
+    "homepage": "https://github.com/dvizh/yii2-relations",
     "type": "yii2-extension",
     "license": "BSD-3-Clause",
     "support": {
-        "source": "https://github.com/dvizh/yii2-review"
+        "source": "https://github.com/dvizh/yii2-relations"
     },
     "authors": [
         {
@@ -18,18 +18,16 @@
     "require": {
         "php": ">=5.4.0",
         "yiisoft/yii2": "*",
-        "yiisoft/yii2-bootstrap": "*"
-    },
-    "require-dev": {
-        "yiisoft/yii2-debug": "*",
-        "yiisoft/yii2-gii": "*"
+        "yiisoft/yii2-bootstrap": "*",
+        "kartik-v/yii2-widget-fileinput": "*",
+        "newerton/yii2-fancybox": "dev-master"
     },
     "config": {
         "process-timeout": 1800
     },
     "autoload": {
         "psr-4": {
-            "dvizh\\review\\": "src\\"
+            "dvizh\\relations\\": "src\\"
         }
     }
 }

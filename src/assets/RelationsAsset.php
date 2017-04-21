@@ -1,9 +1,9 @@
 <?php
-namespace dvizh\review\assets;
+namespace dvizh\relations\assets;
 
 use yii\web\AssetBundle;
 
-class Asset extends AssetBundle
+class RelationsAsset extends AssetBundle
 {
     public $depends = [
         'yii\web\JqueryAsset',
@@ -17,7 +17,7 @@ class Asset extends AssetBundle
     public $css = [
         'css/styles.css',
     ];
-
+    
     public function init()
     {
         $this->sourcePath = dirname(__DIR__).'/web';
