@@ -7,13 +7,13 @@ Yii2-relations
 Выполнить команду
 
 ```
-php composer require dvizh/yii2-relations "*"
+php composer require dvizh/yii2-relations "@dev"
 ```
 
 Или добавить в composer.json
 
 ```
-"dvizh/yii2-relations": "*",
+"dvizh/yii2-relations": "@dev",
 ```
 
 И выполнить
