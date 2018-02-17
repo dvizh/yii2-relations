@@ -4,7 +4,7 @@
     "keywords": ["yii2", "yii2", "application", "images", "yii2-relations", "relations", "dvizh"],
     "homepage": "https://github.com/dvizh/yii2-relations",
     "type": "yii2-extension",
-    "license": "Apache",
+    "license": "Apache-2.0",
     "support": {
         "source": "https://github.com/dvizh/yii2-relations"
     },
