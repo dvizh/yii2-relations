@@ -26,13 +26,13 @@ class DefaultController extends \yii\web\Controller
     public function actionList($model, $limit = 100)
     {
         $this->layout = 'mini';
-        
+
         $model = "\\$model";
         $model = new $model();
         $modelList = $model::find();
-        
+
         $modelList = $modelList->limit($limit);
-        
+
         if($s = yii::$app->request->post('s')) {
             $modelList = $modelList->andWhere(['LIKE', 'name', $s])->orWhere(['id' => $s]);
             foreach($this->module->fields as $field) {
@@ -40,6 +40,6 @@ class DefaultController extends \yii\web\Controller
             }
         }
 
-        return $this->render('list', ['modelList' => $modelList->all(), 'fields' => $this->module->fields]);
+        return $this->render(Yii::$app->getModule('relations')->listView, ['modelList' => $modelList->all(), 'fields' => $this->module->fields]);
     }
 }
