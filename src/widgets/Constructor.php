@@ -10,7 +10,7 @@ class Constructor extends \yii\base\Widget
 {
     public $model = null;
     public $inAttribute = 'relations';
-    public $view = 'constructor';
+    public $view = null;
     
     public function init()
     {
@@ -28,7 +28,11 @@ class Constructor extends \yii\base\Widget
         }
         
         $this->getView()->registerJs($js);
-        
-        return $this->render($this->view, ['model' => $this->model]);
+
+        if(!$this->view) {
+            return $this->render('constructor', ['model' => $this->model]);
+        } else {
+            return $this->renderFile($this->view, ['model' => $this->model]);
+        }
     }
 }
